@@ -2,134 +2,49 @@
 <!DOCTYPE html>
 <html lang="sr">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Od loptice do aviona</title>
-  <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#ff66b2"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script>
-    if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(() => console.log("Service Worker registered"));
-    }
-  </script>
+  <link rel="manifest" href="manifest.json" />
   <style>
     body {
-      font-family: 'Segoe UI', sans-serif;
-      background: #fff0f5;
-      padding: 20px;
-      color: #333;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      color: #cc0066;
+      margin: 0;
+      padding: 1em;
     }
     h1 {
       text-align: center;
       color: #ff3399;
     }
-    .meal {
-      background: white;
+    .day {
+      background: #ffe6f0;
+      margin: 1em 0;
+      padding: 1em;
       border-radius: 10px;
-      padding: 15px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.1);
+      border: 1px solid #ffb3d9;
     }
-    .meal h2 {
-      margin-top: 0;
-    }
-    select {
-      width: 85%;
-      padding: 8px;
-      margin: 5px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-    }
-    .item-list {
-      margin-bottom: 10px;
-    }
-    .total {
-      font-weight: bold;
-      font-size: 20px;
-      text-align: center;
-      margin-top: 20px;
-    }
-    button {
-      padding: 6px 12px;
-      margin: 5px 0;
-      border: none;
-      background-color: #ff66b2;
-      color: white;
-      border-radius: 6px;
-      cursor: pointer;
+    .water, .mood {
+      margin-top: 0.5em;
     }
   </style>
 </head>
 <body>
+  <h1>Dobro jutro, šefice! 👑</h1>
 
-<h1>🍓 Od loptice do aviona</h1>
-<p style="text-align:center;">Dodaj više namirnica po svakom obroku – aplikacija računa kalorije za tebe!</p>
-
-<div id="meals"></div>
-
-<div class="total">
-  🔢 Ukupno kalorija danas: <span id="totalCalories">0</span> kcal
-</div>
-
-<script>
-  const foods = [
-    { name: "🍞 Parče hleba", cal: 265 },
-    { name: "🥚 Kuvano jaje", cal: 155 },
-    { name: "🍌 Banana", cal: 105 },
-    { name: "🍎 Jabuka", cal: 52 },
-    { name: "🥣 Ovsena kaša", cal: 150 },
-    { name: "🥦 Brokoli (100g)", cal: 85 },
-    { name: "🍗 Pileći file (100g)", cal: 130 },
-    { name: "🐟 Losos (100g)", cal: 220 },
-    { name: "🍅 Paradajz (100g)", cal: 42 },
-    { name: "🧀 Sir (100g)", cal: 250 },
-    { name: "🥛 Jogurt", cal: 90 },
-    { name: "🍪 Keks", cal: 140 }
-  ];
-
-  const mealNames = ["🍳 Doručak", "🍎 Užina", "🥗 Ručak", "🍌 Užina 2", "🍲 Večera"];
-  const mealsDiv = document.getElementById("meals");
-
-  function createMealBlock(mealName) {
-    const div = document.createElement("div");
-    div.className = "meal";
-    div.innerHTML = `<h2>${mealName}</h2>
-                     <div class="item-list" id="${mealName}-items"></div>
-                     <button onclick="addItem('${mealName}')">+ Dodaj namirnicu</button>
-                     <p>Ukupno: <span id="${mealName}-total">0</span> kcal</p>`;
-    mealsDiv.appendChild(div);
-  }
-
-  function addItem(mealName) {
-    const select = document.createElement("select");
-    foods.forEach(f => {
-      const option = document.createElement("option");
-      option.value = f.cal;
-      option.textContent = `${f.name} - ${f.cal} kcal`;
-      select.appendChild(option);
-    });
-    select.onchange = () => updateTotals();
-    document.getElementById(`${mealName}-items`).appendChild(select);
-    updateTotals();
-  }
-
-  function updateTotals() {
-    let grandTotal = 0;
-    mealNames.forEach(meal => {
-      const selects = document.querySelectorAll(`#${meal}-items select`);
-      let mealTotal = 0;
-      selects.forEach(s => {
-        mealTotal += parseInt(s.value) || 0;
-      });
-      document.getElementById(`${meal}-total`).textContent = mealTotal;
-      grandTotal += mealTotal;
-    });
-    document.getElementById("totalCalories").textContent = grandTotal;
-  }
-
-  mealNames.forEach(createMealBlock);
-</script>
+  <div class="day">
+    <h2>Ponedeljak</h2>
+    <ul>
+      <li><strong>08:00 Doručak:</strong> Jaja + avokado + integralni tost</li>
+      <li><strong>11:00 Užina:</strong> Bademi + čaj bez šećera</li>
+      <li><strong>13:30 Ručak:</strong> Pileći file + kinoja + brokoli</li>
+      <li><strong>16:30 Užina:</strong> Grčki jogurt + borovnice</li>
+      <li><strong>19:00 Večera:</strong> Tuna salata sa maslinama</li>
+    </ul>
+    <div class="water">💧 Voda: ⬜⬜⬜⬜⬜⬜⬜⬜</div>
+    <div class="mood">😊 Raspoloženje: ⬜ Energična ⬜ Umorna ⬜ Super<br>Ocena dana: ___ / 10</div>
+  </div>
 
 </body>
 </html>
